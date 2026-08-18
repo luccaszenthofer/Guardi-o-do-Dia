@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guardião do Dia</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #49331d 0%, #1a130d 45%, #090705 100%);
+    color: #f4e8ce;
+}
+
+.app {
+    max-width: 500px;
+    margin: auto;
+    padding: 18px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.logo {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.gold {
+    color: #d9ad54;
+}
+
+.hero {
+    background: linear-gradient(145deg, #382719, #1b130d);
+    border: 1px solid #73552c;
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 12px 35px #0008;
+}
+
+.character {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.avatar {
+    width: 100px;
+    height: 110px;
+    border-radius: 18px;
+    border: 2px solid #8a6735;
+    background: radial-gradient(circle, #634a2b, #1b130d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.level {
+    margin-top: 7px;
+    color: #d9ad54;
+    font-weight: bold;
+}
+
+.xpbar {
+    height: 13px;
+    margin-top: 10px;
+    background: #0b0805;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.xpfill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #a87832, #e4c36d);
+    transition: .3s;
+}
+
+.small {
+    color: #aaa092;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.tab {
+    padding: 11px 5px;
+    border-radius: 12px;
+    border: 1px solid #4d3822;
+    background: #21170f;
+    color: #aaa092;
+    font-weight: bold;
+}
+
+.tab.active {
+    color: white;
+    border-color: #9b753c;
+}
+
+.card {
+    background: #1d150f;
+    border: 1px solid #493621;
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid #38291c;
+}
+
+.task:last-child {
+    border-bottom: none;
+}
+
+.check {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    border: 1px solid #76582e;
+    background: #110c08;
+    color: white;
+    font-weight: bold;
+}
+
+.done .check {
+    background: #4d8248;
+}
+
+.done .taskname {
+    text-decoration: line-through;
+    color: #777168;
+}
+
+.taskname {
+    flex: 1;
+}
+
+.xp {
+    color: #d9ad54;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.enemy {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.enemyIcon {
+    font-size: 58px;
+}
+
+.enemyName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #3a2919;
+    color: #d9ad54;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.primary {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 13px;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #b78335, #e0bb68);
+    color: #1b1208;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.primary:disabled {
+    opacity: .4;
+}
+
+.hidden {
+    display: none;
+}
+
+.notice {
+    color: #aaa092;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid #38291c;
+}
+
+footer {
+    text-align: center;
+    color: #6f665b;
+    font-size: 11px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="logo">⚔️ GUARDIÃO DO DIA</div>
+    <div class="gold">🪙 <span id="gold">0</span></div>
+</header>
+
+<section class="hero">
+
+<div class="character">
+
+<div class="avatar">🧙</div>
+
+<div style="flex:1">
+
+<h1>O Aventureiro</h1>
+
+<div class="small">
+Sua jornada começa hoje.
+</div>
+
+<div class="level">
+Nível <span id="level">1</span>
+</div>
+
+<div class="xpbar">
+<div class="xpfill" id="xpfill"></div>
+</div>
+
+<div class="small">
+<span id="xp">0</span> / 100 XP
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="tabs">
+
+<button class="tab active" onclick="showTab('tasks', this)">
+Metas
+</button>
+
+<button class="tab" onclick="showTab('map', this)">
+Mapa
+</button>
+
+<button class="tab" onclick="showTab('stats', this)">
+Perfil
+</button>
+
+</div>
+
+
+<section id="tasks">
+
+<div class="card">
+
+<div class="title">
+📜 Metas de hoje
+</div>
+
+<div id="tasklist"></div>
+
+</div>
+
+<div class="card notice">
+
+Complete suas metas para ganhar XP.
+
+Ao completar todas as metas do dia,
+você recebe um bônus de <b>+20 XP</b>.
+
+Não cumprir uma meta não tira XP.
+Você simplesmente deixa de evoluir naquele dia.
+
+</div>
+
+</section>
+
+
+<section id="map" class="hidden">
+
+<div class="card">
+
+<div class="title">
+🗺️ Floresta Antiga
+</div>
+
+<div id="enemy"></div>
+
+</div>
+
+</section>
+
+
+<section id="stats" class="hidden">
+
+<div class="card">
+
+<div class="title">
+🏆 Perfil do Aventureiro
+</div>
+
+<div class="stat">
+<span>Dias completos</span>
+<b id="days">0</b>
+</div>
+
+<div class="stat">
+<span>Inimigos derrotados</span>
+<b id="kills">0</b>
+</div>
+
+<div class="stat">
+<span>XP total</span>
+<b id="totalxp">0</b>
+</div>
+
+<div class="stat">
+<span>Sequência</span>
+<b id="streak">0</b>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+Guardião do Dia — versão 1
+</footer>
+
+</div>
+
+
+<script>
+
+const tasks = [
+
+{
+id: 1,
+name: "Treinar / movimentar o corpo",
+xp: 25
+},
+
+{
+id: 2,
+name: "Trabalho ou estudo focado",
+xp: 25
+},
+
+{
+id: 3,
+name: "Ler por pelo menos 20 minutos",
+xp: 20
+},
+
+{
+id: 4,
+name: "Organizar uma coisa importante",
+xp: 15
+},
+
+{
+id: 5,
+name: "Cumprir uma meta pessoal",
+xp: 15
+}
+
+];
+
+
+const enemies = [
+
+{
+name: "Lobo Sombrio",
+level: 2,
+icon: "🐺"
+},
+
+{
+name: "Orc Brutamontes",
+level: 4,
+icon: "👹"
+},
+
+{
+name: "Feiticeiro das Cinzas",
+level: 7,
+icon: "🧙‍♂️"
+},
+
+{
+name: "Senhor da Floresta Negra",
+level: 10,
+icon: "👺"
+},
+
+{
+name: "Dragão Ancestral",
+level: 15,
+icon: "🐉"
+}
+
+];
+
+
+let data =
+JSON.parse(localStorage.getItem("guardiao")) ||
+{
+xp: 0,
+totalxp: 0,
+gold: 0,
+days: 0,
+kills: 0,
+streak: 0,
+defeated: 0,
+completed: {}
+};
+
+
+function save() {
+
+localStorage.setItem(
+"guardiao",
+JSON.stringify(data)
+);
+
+}
+
+
+function getLevel() {
+
+return Math.floor(data.xp / 100) + 1;
+
+}
+
+
+function render() {
+
+document.getElementById("level").textContent =
+getLevel();
+
+document.getElementById("xp").textContent =
+data.xp % 100;
+
+document.getElementById("gold").textContent =
+data.gold;
+
+document.getElementById("xpfill").style.width =
+(data.xp % 100) + "%";
+
+document.getElementById("days").textContent =
+data.days;
+
+document.getElementById("kills").textContent =
+data.kills;
+
+document.getElementById("totalxp").textContent =
+data.totalxp;
+
+document.getElementById("streak").textContent =
+data.streak;
+
+
+const list =
+document.getElementById("tasklist");
+
+list.innerHTML = "";
+
+
+tasks.forEach(task => {
+
+const done =
+data.completed[task.id];
+
+const row =
+document.createElement("div");
+
+row.className =
+"task " + (done ? "done" : "");
+
+row.innerHTML = `
+
+<button class="check">
+
+${done ? "✓" : ""}
+
+</button>
+
+<div class="taskname">
+${task.name}
+</div>
+
+<div class="xp">
++${task.xp} XP
+</div>
+
+`;
+
+row.querySelector("button").onclick =
+() => completeTask(task);
+
+list.appendChild(row);
+
+});
+
+renderEnemy();
+
+}
+
+
+function completeTask(task) {
+
+if(data.completed[task.id])
+return;
+
+
+data.completed[task.id] = true;
+
+data.xp += task.xp;
+
+data.totalxp += task.xp;
+
+data.gold += 5;
+
+
+const all =
+tasks.every(t => data.completed[t.id]);
+
+
+if(all) {
+
+data.xp += 20;
+
+data.totalxp += 20;
+
+data.gold += 20;
+
+data.days++;
+
+data.streak++;
+
+alert(
+"🏆 DIA CONCLUÍDO!\n\n+20 XP de bônus!"
+);
+
+}
+
+
+save();
+
+render();
+
+}
+
+
+function renderEnemy() {
+
+const enemy =
+enemies[
+Math.min(
+data.defeated,
+enemies.length - 1
+)
+];
+
+const unlocked =
+getLevel() >= enemy.level;
+
+
+document.getElementById("enemy").innerHTML = `
+
+<div class="enemy">
+
+<div class="enemyIcon">
+
+${enemy.icon}
+
+</div>
+
+<div>
+
+<div class="enemyName">
+
+${enemy.name}
+
+</div>
+
+<div class="small">
+
+Nível necessário:
+${enemy.level}
+
+</div>
+
+<span class="badge">
+
+${unlocked
+? "⚔️ DESBLOQUEADO"
+: "🔒 BLOQUEADO"}
+
+</span>
+
+</div>
+
+</div>
+
+<button
+class="primary"
+${unlocked ? "" : "disabled"}
+onclick="fight()">
+
+${unlocked
+? "⚔️ ENFRENTAR INIMIGO"
+: "🔒 Alcance o nível " + enemy.level}
+
+</button>
+
+`;
+
+}
+
+
+function fight() {
+
+const enemy =
+enemies[data.defeated];
+
+if(getLevel() < enemy.level)
+return;
+
+
+data.defeated++;
+
+data.kills++;
+
+data.gold += 50;
+
+save();
+
+alert(
+"🏆 VITÓRIA!\n\n" +
+enemy.name +
+" foi derrotado!\n\n" +
+"+50 🪙"
+);
+
+render();
+
+}
+
+
+function showTab(tab, button) {
+
+document
+.getElementById("tasks")
+.classList.toggle(
+"hidden",
+tab !== "tasks"
+);
+
+document
+.getElementById("map")
+.classList.toggle(
+"hidden",
+tab !== "map"
+);
+
+document
+.getElementById("stats")
+.classList.toggle(
+"hidden",
+tab !== "stats"
+);
+
+
+document
+.querySelectorAll(".tab")
+.forEach(
+b => b.classList.remove("active")
+);
+
+button.classList.add("active");
+
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>
