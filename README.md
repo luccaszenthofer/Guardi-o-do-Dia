@@ -1,2 +1,3 @@
-# Guardião do Dia V2
-Jornada infinita, ciclos anuais, histórico, metas, XP, combates, virtudes e referências bíblicas.
+# Guardião do Dia V3
+
+Jornada infinita com renovação anual e Crônicas, metas diárias, XP, níveis, combates, virtudes, histórico semanal/mensal/anual, nome do personagem e skins desbloqueáveis.

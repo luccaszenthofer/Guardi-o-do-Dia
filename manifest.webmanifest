@@ -1,7 +1,7 @@
 {
   "name": "Guardião do Dia",
   "short_name": "Guardião",
-  "description": "Uma jornada de fé, disciplina e virtude.",
+  "description": "Uma jornada infinita de fé, disciplina e virtude.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0c0907",

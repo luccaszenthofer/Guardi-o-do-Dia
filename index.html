@@ -8,6 +8,19 @@
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#4b321d,#21160d 30%,#0c0907 70%);color:var(--t);font-family:system-ui,sans-serif}.app{max-width:560px;margin:auto;padding:14px 14px 35px}
 .top{display:flex;justify-content:space-between;font-weight:900;margin-bottom:12px}.coins{color:var(--g)}
 .hero,.card{background:linear-gradient(145deg,#24180f,#15100b);border:1px solid var(--l);border-radius:20px}.hero{padding:17px;box-shadow:0 15px 35px #0009}.heroRow{display:flex;gap:14px;align-items:center}.portrait{width:94px;height:106px;border:2px solid #906c38;border-radius:20px;display:grid;place-items:center;background:radial-gradient(circle,#6b4d28,#17100b);font-size:64px}.name{font-size:21px;font-weight:950}.muted,.small{color:var(--m);font-size:11px}.level{color:#f4d98d;font-weight:900;margin-top:6px}.bar{height:13px;background:#090604;border-radius:99px;overflow:hidden;margin-top:8px}.fill{height:100%;background:linear-gradient(90deg,#a87932,#f2d47e)}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:13px 0}.tab,.secondary,.danger{padding:10px 4px;border:1px solid #4b3520;border-radius:12px;background:#18100b;color:var(--m);font-weight:850}.tab.active{color:#fff;border-color:#9a743c;background:#2a1e13}.card{padding:15px;margin-bottom:11px}.title{font-size:17px;font-weight:950;margin-bottom:10px}.quote{border-left:3px solid var(--g);padding:9px 11px;background:#1b130d;border-radius:8px;line-height:1.45;font-size:13px}.task{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #352719}.task:last-child{border:0}.check{width:30px;height:30px;border-radius:9px;border:1px solid #775a31;background:#100b07;color:#fff;font-weight:900}.done .check{background:#4d8649}.done .taskname{text-decoration:line-through;color:#777}.taskname{flex:1}.xp{color:var(--g);font-size:12px;font-weight:900}.primary{width:100%;padding:12px;border:0;border-radius:12px;background:linear-gradient(135deg,#b78133,#e5c06b);color:#1a1008;font-weight:900;margin-top:9px}.secondary{width:100%;margin-top:9px}.primary:disabled{opacity:.4}.enemy{display:flex;gap:14px;align-items:center}.enemyIcon{font-size:56px}.enemyName{font-size:19px;font-weight:950}.locked{opacity:.45;filter:grayscale(1)}.badge,.pill{display:inline-block;margin-top:6px;padding:4px 8px;border-radius:99px;background:#3b2a19;color:var(--g);font-size:10px;font-weight:900}.stat{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #352719}.stat:last-child{border:0}.inputrow,.goalrow{display:flex;gap:7px}.inputrow input,.goalrow input{min-width:0;padding:10px;border-radius:10px;border:1px solid #5a4225;background:#0f0b08;color:#fff}.inputrow input:first-child,.goalrow input:first-child{flex:1}.goalrow{margin-top:9px}.goalrow input.x{max-width:70px;color:var(--g)}.goalrow button{width:38px;border-radius:9px;border:1px solid #694c29;background:#21150d;color:#fff}.virtueTop{display:flex;justify-content:space-between;font-size:12px}.virtue{margin:9px 0}.vbar{height:8px;background:#0a0705;border-radius:99px;overflow:hidden}.vfill{height:100%;background:linear-gradient(90deg,#8d672e,#e3bf6b)}.history{padding:10px 0;border-bottom:1px solid #352719}.ach{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #352719}.achIcon{font-size:28px}.hidden{display:none}.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;background:#2d2116;border:1px solid #8a6633;padding:12px 15px;border-radius:13px;transition:.25s;z-index:9;font-weight:850}.toast.show{opacity:1;transform:translate(-50%,0)}footer{text-align:center;color:#62594e;font-size:10px;margin-top:16px}
+
+.historyTabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}
+.htab{padding:9px 5px;border:1px solid #4b3520;border-radius:10px;background:#18100b;color:#a99a84;font-weight:850}
+.htab.active{color:#fff;border-color:#9a743c;background:#2a1e13}
+.histgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.histbox{background:#120d09;border:1px solid #3c2a1b;border-radius:12px;padding:11px}
+.histbox b{display:block;font-size:18px;color:#f4d98d}
+.skinGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+.skin{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #4b3520;border-radius:13px;background:#120d09}
+.skin.selected{border-color:#e0b85f;box-shadow:0 0 0 1px #e0b85f55 inset}
+.skin.locked{opacity:.45}
+.skinIcon{font-size:34px}
+.skinName{font-weight:900;font-size:13px}
 </style></head><body><div class="app">
 <div class="top"><div>⚔️ GUARDIÃO DO DIA</div><div class="coins">🪙 <span id="gold">0</span></div></div>
 <section class="hero"><div class="heroRow"><div class="portrait" id="portrait">🧙</div><div style="flex:1">
@@ -22,12 +35,21 @@
 <div class="card"><div class="title">🔥 Constância</div><div class="stat"><span>Sequência</span><b id="streak">0</b></div><div class="stat"><span>Dias completos</span><b id="days">0</b></div></div></section>
 
 <section id="journey" class="hidden"><div class="card"><div class="title">🗺️ Caminho do Peregrino</div><div id="enemy"></div></div>
-<div class="card"><div class="title">📖 Crônicas dos anos</div><div id="history"></div></div>
+<div class="card"><div class="title">📊 Histórico da jornada</div>
+<div class="historyTabs"><button class="htab active" onclick="histTab('week',this)">Semana</button><button class="htab" onclick="histTab('month',this)">Mês</button><button class="htab" onclick="histTab('year',this)">Anos</button></div>
+<div id="history"></div></div>
 <div class="card"><div class="title">✝️ Tempo litúrgico</div><div class="muted">Uma inspiração espiritual para a jornada, sem substituir a vida sacramental ou a orientação da Igreja.</div><div id="season" style="margin-top:9px"></div></div></section>
 
-<section id="hero" class="hidden"><div class="card"><div class="title">🛡️ Seu Peregrino</div><div class="inputrow"><input id="newname" maxlength="28" placeholder="Nome do personagem"><button class="secondary" style="width:auto;margin:0" onclick="rename()">Salvar</button></div>
+<section id="hero" class="hidden">
+<div class="card"><div class="title">🛡️ Personalizar seu herói</div>
+<div class="muted">Escolha o nome que acompanhará sua jornada e uma aparência. Algumas skins são desbloqueadas conforme você sobe de nível. Seu progresso fica salvo neste aparelho.</div>
+<div class="inputrow" style="margin-top:10px"><input id="newname" maxlength="28" placeholder="Nome do personagem"><button class="secondary" style="width:auto;margin:0" onclick="rename()">Salvar</button></div>
+<div class="title" style="margin-top:16px">🎭 Skins</div><div id="skins" class="skinGrid"></div>
+</div>
+<div class="card"><div class="title">⚔️ Atributos</div>
 <div class="stat"><span>Título</span><b id="herotitle"></b></div><div class="stat"><span>Força</span><b id="str"></b></div><div class="stat"><span>Defesa</span><b id="def"></b></div><div class="stat"><span>Vitalidade</span><b id="vit"></b></div><div class="stat"><span>Sabedoria</span><b id="wis"></b></div></div>
-<div class="card"><div class="title">❤️ Virtudes</div><div id="virtues"></div></div><div class="card"><div class="title">🏆 Conquistas</div><div id="ach"></div></div></section>
+<div class="card"><div class="title">❤️ Virtudes</div><div id="virtues"></div></div>
+<div class="card"><div class="title">🏆 Conquistas</div><div id="ach"></div></div></section>
 
 <section id="goals" class="hidden"><div class="card"><div class="title">➕ Nova meta</div><div class="inputrow"><input id="goalname" maxlength="45" placeholder="Ex.: academia, estudar..."><input id="goalxp" type="number" min="5" max="100" value="20" style="max-width:80px"></div><button class="primary" onclick="addGoal()">Adicionar meta</button></div>
 <div class="card"><div class="title">⚙️ Suas metas</div><div id="edit"></div></div></section>
@@ -44,25 +66,70 @@ function level(){return Math.floor(s.xp/100)+1}
 function title(){let l=level();return l>=50?"Lenda da Aurora":l>=30?"Guardião da Esperança":l>=20?"Campeão da Perseverança":l>=10?"Cavaleiro da Luz":l>=5?"Guerreiro do Caminho":"Caminhante da Aurora"}
 function toast(x){let t=document.getElementById("toast");t.textContent=x;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2300)}
 function esc(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function yearly(){let y=new Date().getFullYear();if(s.year!==y){s.history.unshift({year:s.year,level:level(),xp:s.xp,days:s.days,streak:s.streak,kills:s.kills});s.year=y;s.xp=0;s.days=0;s.streak=0;s.kills=0;s.enemy=0;s.done={};s.bonus=false;s.last="";Object.keys(s.v).forEach(k=>s.v[k]=0);save();toast("🌅 Nova jornada! Sua Crônica foi preservada.")}}
+function yearly(){let y=new Date().getFullYear();if(s.year!==y){s.history=s.history||[];s.history.unshift({year:s.year,level:level(),xp:s.xp,totalxp:s.totalxp,days:s.days,streak:s.streak,kills:s.kills,log:s.log});s.year=y;s.xp=0;s.days=0;s.streak=0;s.kills=0;s.enemy=0;s.done={};s.bonus=false;s.last="";s.log={};Object.keys(s.v).forEach(k=>s.v[k]=0);save();toast("🌅 Nova jornada! Sua Crônica foi preservada.")}}
 function daily(){yearly();let d=today();if(s.last!==d){if(s.last){let a=new Date(s.last+"T12:00:00"),b=new Date(d+"T12:00:00"),diff=Math.round((b-a)/86400000);if(diff>1)s.streak=0}s.last=d;s.done={};s.bonus=false;save()}}
 function render(){
-daily();let l=level();document.getElementById("name").textContent=s.name;document.getElementById("title").textContent=title();document.getElementById("herotitle").textContent=title();document.getElementById("level").textContent=l;document.getElementById("year").textContent=s.year;document.getElementById("xp").textContent=s.xp%100;document.getElementById("totalxp").textContent=s.totalxp;document.getElementById("fill").style.width=s.xp%100+"%";document.getElementById("gold").textContent=s.gold;document.getElementById("streak").textContent=s.streak;document.getElementById("days").textContent=s.days;
-document.getElementById("portrait").textContent=l>=30?"👑":l>=20?"🛡️":l>=10?"⚔️":l>=5?"🧙‍♂️":"🧙";document.getElementById("str").textContent=10+l*2;document.getElementById("def").textContent=10+Math.floor(l*1.5);document.getElementById("vit").textContent=10+l*2;document.getElementById("wis").textContent=10+l;
-let q=VERSES[(new Date().getDate()+new Date().getMonth())%VERSES.length];document.getElementById("verse").innerHTML="“"+q[0]+"”<div class='small'>"+q[1]+"</div>";tasks();enemy();history();season();virtues();ach();editor()
+daily();let l=level();document.getElementById("name").textContent=s.name;document.getElementById("newname").value=s.name;document.getElementById("title").textContent=title();document.getElementById("herotitle").textContent=title();document.getElementById("level").textContent=l;document.getElementById("year").textContent=s.year;document.getElementById("xp").textContent=s.xp%100;document.getElementById("totalxp").textContent=s.totalxp;document.getElementById("fill").style.width=s.xp%100+"%";document.getElementById("gold").textContent=s.gold;document.getElementById("streak").textContent=s.streak;document.getElementById("days").textContent=s.days;
+let skinList=[["🧙","Mago do Caminho",1],["⚔️","Cavaleiro da Luz",5],["🛡️","Paladino",10],["🏹","Rastreador",15],["🧝","Guardião Élfico",20],["🪓","Anão da Montanha",25],["🦅","Sentinela da Aurora",30],["🐉","Lendário",50]];let activeSkin=skinList[Math.min(s.skin,skinList.length-1)];document.getElementById("portrait").textContent=activeSkin[0];document.getElementById("str").textContent=10+l*2;document.getElementById("def").textContent=10+Math.floor(l*1.5);document.getElementById("vit").textContent=10+l*2;document.getElementById("wis").textContent=10+l;
+let q=VERSES[(new Date().getDate()+new Date().getMonth())%VERSES.length];document.getElementById("verse").innerHTML="“"+q[0]+"”<div class='small'>"+q[1]+"</div>";tasks();enemy();history();season();skins();virtues();ach();editor();histTab('week',document.querySelector('.htab'))
 }
 function tasks(){let e=document.getElementById("tasks");e.innerHTML="";s.goals.forEach(g=>{let d=!!s.done[g.id],r=document.createElement("div");r.className="task "+(d?"done":"");r.innerHTML='<button class="check">'+(d?"✓":"")+'</button><div class="taskname">'+esc(g.name)+'</div><div class="xp">+'+g.xp+' XP</div>';r.querySelector("button").onclick=()=>goal(g);e.appendChild(r)});let all=s.goals.every(g=>s.done[g.id]);let b=document.getElementById("finish");b.disabled=!all||s.bonus;b.textContent=s.bonus?"✅ Bônus recebido":"🏆 Completar o dia (+20 XP)";b.onclick=finishDay}
-function goal(g){if(s.done[g.id])return;s.done[g.id]=1;s.xp+=+g.xp;s.totalxp+=+g.xp;s.gold+=5;s.v[g.v]=(s.v[g.v]||0)+1;save();toast("✨ +"+g.xp+" XP");render()}
-function finishDay(){if(s.bonus||!s.goals.every(g=>s.done[g.id]))return;s.xp+=20;s.totalxp+=20;s.gold+=20;s.days++;s.streak++;s.bonus=true;save();toast("🏆 Dia completo! +20 XP");render()}
+
+function dayLog(){
+  let d=today();
+  s.log[d]=s.log[d]||{xp:0,gold:0,done:0,completed:false};
+  return s.log[d];
+}
+function recordXP(x,g){
+  let r=dayLog();r.xp=(r.xp||0)+x;r.gold=(r.gold||0)+(g||0);r.done=(r.done||0)+1;save();
+}
+function dateObj(d){return new Date(d+"T12:00:00")}
+function fmtDate(d){return dateObj(d).toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"})}
+function rangeDays(kind){
+  let now=new Date();now.setHours(12,0,0,0);
+  if(kind==="week"){
+    let day=(now.getDay()+6)%7;let start=new Date(now);start.setDate(now.getDate()-day);
+    let arr=[];for(let i=0;i<7;i++){let d=new Date(start);d.setDate(start.getDate()+i);arr.push(d.toLocaleDateString("sv-SE"))}return arr;
+  }
+  if(kind==="month"){
+    let y=now.getFullYear(),m=now.getMonth(),days=new Date(y,m+1,0).getDate(),arr=[];
+    for(let i=1;i<=days;i++){let d=new Date(y,m,i);arr.push(d.toLocaleDateString("sv-SE"))}return arr;
+  }
+  return Object.keys(s.log).filter(d=>d.startsWith(String(now.getFullYear()))).sort();
+}
+function histTab(kind,b){
+  document.querySelectorAll(".htab").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+  let days=rangeDays(kind), rows=days.map(d=>({d,r:s.log[d]||{xp:0,gold:0,done:0,completed:false}}));
+  let xp=rows.reduce((a,x)=>a+(x.r.xp||0),0),completed=rows.filter(x=>x.r.completed).length,done=rows.reduce((a,x)=>a+(x.r.done||0),0),gold=rows.reduce((a,x)=>a+(x.r.gold||0),0);
+  let label=kind==="week"?"Esta semana":kind==="month"?"Este mês":"Este ano";
+  let html='<div class="histgrid"><div class="histbox">XP<b>'+xp+'</b></div><div class="histbox">Dias completos<b>'+completed+'</b></div><div class="histbox">Metas feitas<b>'+done+'</b></div><div class="histbox">Moedas<b>'+gold+' 🪙</b></div></div><div class="small" style="margin-top:12px">'+label+'</div>';
+  if(kind==="year"){
+    let hist=(s.history||[]).map(x=>'<div class="history"><b>📜 '+x.year+'</b><div class="small">Nível '+x.level+' • '+x.days+' dias • '+x.kills+' vitórias • '+x.xp+' XP</div></div>').join("");
+    html+=hist||'<div class="muted" style="margin-top:9px">Os anos anteriores aparecerão aqui quando a jornada virar o ano.</div>';
+  }else{
+    let shown=rows.filter(x=>x.r.xp||x.r.done||x.r.completed);
+    html+=shown.length?shown.reverse().map(x=>'<div class="history"><b>'+fmtDate(x.d)+' '+(x.r.completed?"🏆":"")+'</b><div class="small">'+(x.r.done||0)+' metas • '+(x.r.xp||0)+' XP • '+(x.r.gold||0)+' 🪙</div></div>').join(""):'<div class="muted" style="margin-top:9px">Ainda não há registros neste período. Comece suas missões hoje.</div>';
+  }
+  document.getElementById("history").innerHTML=html;
+}
+function goal(g){if(s.done[g.id])return;s.done[g.id]=1;s.xp+=+g.xp;s.totalxp+=+g.xp;s.gold+=5;s.v[g.v]=(s.v[g.v]||0)+1;recordXP(+g.xp,5);toast("✨ +"+g.xp+" XP");render()}
+function finishDay(){if(s.bonus||!s.goals.every(g=>s.done[g.id]))return;s.xp+=20;s.totalxp+=20;s.gold+=20;s.days++;s.streak++;s.bonus=true;let r=dayLog();r.xp=(r.xp||0)+20;r.gold=(r.gold||0)+20;r.completed=true;save();toast("🏆 Dia completo! +20 XP");render()}
 function enemy(){let e=ENEMIES[Math.min(s.enemy,ENEMIES.length-1)],ok=level()>=e[1];document.getElementById("enemy").innerHTML='<div class="enemy '+(ok?"":"locked")+'"><div class="enemyIcon">'+e[2]+'</div><div><div class="enemyName">'+e[0]+'</div><div class="small">Nível '+e[1]+' • Recompensa '+e[3]+' 🪙</div><span class="badge">'+(ok?"⚔️ DISPONÍVEL":"🔒 BLOQUEADO")+'</span></div></div><button class="primary" '+(ok?"":"disabled")+' onclick="fight()">'+(ok?"⚔️ ENFRENTAR":"Alcance o nível "+e[1])+"</button>"}
 function fight(){let e=ENEMIES[Math.min(s.enemy,ENEMIES.length-1)];if(level()<e[1])return;s.kills++;s.gold+=e[3];s.enemy=(s.enemy+1)%ENEMIES.length;save();toast("🏆 "+e[0]+" derrotado!");render()}
 function history(){let e=document.getElementById("history");e.innerHTML=s.history.length?s.history.map(x=>'<div class="history"><b>📜 '+x.year+'</b><div class="small">Nível '+x.level+' • '+x.days+' dias • sequência '+x.streak+' • '+x.kills+' vitórias • '+x.xp+' XP</div></div>').join(""):'<div class="muted">Sua primeira Crônica aparecerá na virada do ano.</div>'}
 function season(){let m=new Date().getMonth()+1,d=new Date().getDate(),n="Tempo Comum",i="🌿";if((m==12&&d>=1)||(m==1&&d<=7)){n="Advento / Natal";i="🕯️"}else if(m==2||m==3){n="Quaresma";i="✝️"}else if(m==4||m==5){n="Páscoa / Tempo Pascal";i="🌅"}else if(m==6){n="Pentecostes";i="🔥"}document.getElementById("season").innerHTML='<span class="pill">'+i+" "+n+"</span>"}
+
+function skins(){
+  let list=[["🧙","Mago do Caminho",1],["⚔️","Cavaleiro da Luz",5],["🛡️","Paladino",10],["🏹","Rastreador",15],["🧝","Guardião Élfico",20],["🪓","Anão da Montanha",25],["🦅","Sentinela da Aurora",30],["🐉","Lendário",50]];
+  let e=document.getElementById("skins");if(!e)return;
+  e.innerHTML=list.map((x,i)=>{let ok=level()>=x[2],sel=s.skin===i;return '<button class="skin '+(sel?"selected ":"")+(ok?"":"locked")+'" '+(ok?'onclick="setSkin('+i+')"':'disabled')+'><span class="skinIcon">'+x[0]+'</span><span><div class="skinName">'+x[1]+'</div><div class="small">'+(ok?(sel?"EQUIPADA":"Nível "+x[2]):"🔒 Nível "+x[2])+'</div></span></button>'}).join("");
+}
+function setSkin(i){let unlock=[1,5,10,15,20,25,30,50];if(level()<unlock[i])return;s.skin=i;save();toast("🎭 Skin equipada");render()}
 function virtues(){let n={fe:"🕊️ Fé",esperanca:"🌅 Esperança",caridade:"❤️ Caridade",coragem:"⚔️ Coragem",prudencia:"🛡️ Prudência",perseveranca:"🔥 Perseverança",sabedoria:"📖 Sabedoria"},e=document.getElementById("virtues");e.innerHTML="";Object.keys(n).forEach(k=>{let v=s.v[k]||0;e.innerHTML+='<div class="virtue"><div class="virtueTop"><span>'+n[k]+'</span><b>'+v+'</b></div><div class="vbar"><div class="vfill" style="width:'+Math.min(100,v*4)+'%"></div></div></div>'})}
 function ach(){let A=[["🌅","Primeiro passo",s.days>=1],["🔥","Sete dias",s.streak>=7],["⚔️","Primeira vitória",s.kills>=1],["❤️","Constância",s.days>=30],["👑","Nível 10",level()>=10],["📜","Cronista",s.history.length>=1],["🐉","Lenda",s.kills>=9]],e=document.getElementById("ach");e.innerHTML=A.map(a=>'<div class="ach"><div class="achIcon">'+a[0]+'</div><div><b>'+a[1]+'</b><div class="small">'+(a[2]?"CONCLUÍDA":"a conquistar")+"</div></div></div>").join("")}
 function addGoal(){let n=document.getElementById("goalname").value.trim(),x=Math.max(5,Math.min(100,+document.getElementById("goalxp").value||20));if(!n)return toast("Digite uma meta.");s.goals.push({id:"g"+Date.now(),name:n,xp:x,v:"perseveranca"});document.getElementById("goalname").value="";save();render();toast("📜 Meta adicionada")}
 function removeGoal(id){if(s.goals.length<=1)return toast("Mantenha pelo menos uma meta.");if(confirm("Remover esta meta?")){s.goals=s.goals.filter(g=>g.id!==id);delete s.done[id];save();render()}}
-function editor(){let e=document.getElementById("edit");e.innerHTML=s.goals.map(g=>'<div class="goalrow"><input value="'+esc(g.name)+'" disabled><input class="x" value="'+g.xp+'" disabled><button onclick="removeGoal(''+g.id+'')">×</button></div>').join("")}
+function editor(){let e=document.getElementById("edit");e.innerHTML=s.goals.map(g=>`<div class="goalrow"><input value="${esc(g.name)}" disabled><input class="x" value="${g.xp}" disabled><button onclick="removeGoal('${g.id}')">×</button></div>`).join("")}
 function rename(){let n=document.getElementById("newname").value.trim();if(n){s.name=n;save();render();toast("🛡️ Nome atualizado")}}
 function tab(id,b){["today","journey","hero","goals"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
 render();
